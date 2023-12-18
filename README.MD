@@ -24,4 +24,4 @@ Murder mystery game
 		- act 3
 		- users debate
 		- voting
-		- 
+https://chat.openai.com/share/346accee-3a8f-46bb-a74d-a1144e3c0106
