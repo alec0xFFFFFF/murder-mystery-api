@@ -4,6 +4,8 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 import uuid
 import openai
 import requests
+import pystache
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
@@ -34,6 +36,11 @@ def generate_response(prompt):
         return response.choices[0].text.strip()
     except Exception as e:
         return str(e)
+
+def render_template(file_name, context):
+    with open(file_name, 'r') as file:
+        template = file.read()
+    return pystache.render(template, context)
 
 
 games = {}  # Store game data
@@ -105,7 +112,7 @@ def generate_narration(text):
 @app.route('/theme-selection', methods=['POST'])
 def theme_selection():
     theme = request.json.get('theme')
-    prompt = f"Generate a description for a murder mystery game with the theme '{theme}'. Include unique aspects of this theme that can be incorporated into the game."
+    prompt = render_template('prompts/theme_selection.prompt', {'theme': theme})
     response = generate_response(prompt)
     return jsonify({'details': response})
 
