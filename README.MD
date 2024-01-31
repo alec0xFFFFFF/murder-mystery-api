@@ -1,3 +1,5 @@
+[Postman collection]()
+
 Murder mystery game
 - subscription for person hosting games
 	- free month for everyone else they get to sign up for a subscription
